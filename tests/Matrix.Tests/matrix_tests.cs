@@ -60,5 +60,21 @@ namespace Matrix.Tests
 			m.Add(m2);
 			Assert.Equal(mCorrect, m);
 		}
+
+		[Fact]
+		public void throws_error_on_wrong_added_matrix_size()
+		{
+			int rows = 3;
+			int cols = 3;
+			var m = new Matrix(rows, cols);
+			var m2 = new Matrix(rows+1, cols);
+			try
+			{
+				m.Add(m2);
+				Assert.Fail("Out of range Add does not throw exception");
+			}
+			catch
+			{}
+		}
 	}
 }

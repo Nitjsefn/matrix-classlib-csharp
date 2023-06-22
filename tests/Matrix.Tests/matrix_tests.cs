@@ -26,5 +26,21 @@ namespace Matrix.Tests
 			m.Set(2, 1, 9);
 			Assert.Equal(outputStr, m.ToString());
 		}
+
+		[Fact]
+		public void set_out_of_range_values()
+		{
+			int rows = 3;
+			int cols = 3;
+			var m = new Matrix(rows, cols);
+			try
+			{
+				m.Set(0, 3, 1);
+				m.Set(2, 1, 9);
+				Assert.Fail("Out of range Set does not throw exception");
+			}
+			catch
+			{}
+		}
 	}
 }

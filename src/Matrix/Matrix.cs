@@ -37,9 +37,11 @@ namespace Matrix
 
 		public void Add(Matrix m)
 		{
-			throw new NotImplementedException();
 			if(m.Cols != this.Cols || m.Rows != this.Rows)
 				throw new ArgumentException("Matrices not equal");
+			for(int r = 0; r < Rows; r++)
+				for(int c = 0; c < Cols; c++)
+					Elements[r, c] += m.Elements[r, c];
 		}
 	}
 }

@@ -58,7 +58,7 @@ namespace Matrix.Tests
 			mCorrect.Set(0, 0, 2);
 			mCorrect.Set(2, 1, 9);
 			m.Add(m2);
-			Assert.Equal(mCorrect, m);
+			Assert.Equal(mCorrect.Elements, m.Elements);
 		}
 
 		[Fact]

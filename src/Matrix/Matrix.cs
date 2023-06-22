@@ -30,9 +30,9 @@ namespace Matrix
 
 		public void Set(int r, int c, double e)
 		{
-			throw new NotImplementedException();
-			if(r >= Rows || c >= Cols)
+			if(r >= Rows || r < 0 || c >= Cols || c < 0)
 				throw new ArgumentOutOfRangeException("Out of matrix bounds exception");
+			Elements[r, c] = e;
 		}
 	}
 }

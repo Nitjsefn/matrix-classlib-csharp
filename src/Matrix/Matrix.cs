@@ -1,3 +1,5 @@
+using System;
+
 namespace Matrix
 {
 	public class Matrix
@@ -24,6 +26,13 @@ namespace Matrix
 				toRet += '\n';
 			}
 			return toRet;
+		}
+
+		public void Set(int r, int c, double e)
+		{
+			throw new NotImplementedException();
+			if(r >= Rows || c >= Cols)
+				throw new ArgumentOutOfRangeException("Out of matrix bounds exception");
 		}
 	}
 }

@@ -34,5 +34,12 @@ namespace Matrix
 				throw new ArgumentOutOfRangeException("Out of matrix bounds exception");
 			Elements[r, c] = e;
 		}
+
+		public void Add(Matrix m)
+		{
+			throw new NotImplementedException();
+			if(m.Cols != this.Cols || m.Rows != this.Rows)
+				throw new ArgumentException("Matrices not equal");
+		}
 	}
 }

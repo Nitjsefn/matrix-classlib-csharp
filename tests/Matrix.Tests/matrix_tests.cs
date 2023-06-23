@@ -95,5 +95,38 @@ namespace Matrix.Tests
 			Assert.Equal(a, m[0, 0]);
 			Assert.Equal(0D, m[0, 1]);
 		}
+
+		[Fact]
+		public void swaps_rows()
+		{
+			int rows = 3;
+			int cols = 2;
+			var m = new Matrix(rows, cols);
+			for(int i = 0; i < rows; i++)
+				for(int j = 0; j < cols; j++)
+					m[i, j] = i+1;
+			m.SwapRows(0, 2);
+			Assert.Equal(3, m[0, 0]);
+			Assert.Equal(3, m[0, 1]);
+			Assert.Equal(1, m[2, 0]);
+			Assert.Equal(1, m[2, 1]);
+		}
+		
+		[Fact]
+		public void swaps_cols()
+		{
+			int rows = 2;
+			int cols = 3;
+			var m = new Matrix(rows, cols);
+			for(int i = 0; i < rows; i++)
+				for(int j = 0; j < cols; j++)
+					m[i, j] = j+1;
+			m.SwapCols(0, 2);
+			Assert.Equal(3, m[0, 0]);
+			Assert.Equal(3, m[1, 0]);
+			Assert.Equal(1, m[0, 2]);
+			Assert.Equal(1, m[1, 2]);
+		}
+
 	}
 }

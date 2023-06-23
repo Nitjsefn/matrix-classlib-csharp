@@ -76,5 +76,14 @@ namespace Matrix.Tests
 			catch
 			{}
 		}
+
+		[Fact]
+		public void copy_constructor()
+		{
+			var m1 = new Matrix(2, 2);
+			var m2 = new Matrix(m1);
+			m2.Elements[0, 0] = 12;
+			Assert.NotEqual(m1, m2);
+		}
 	}
 }

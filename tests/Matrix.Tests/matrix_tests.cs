@@ -85,5 +85,15 @@ namespace Matrix.Tests
 			m2.Elements[0, 0] = 12;
 			Assert.NotEqual(m1, m2);
 		}
+
+		[Fact]
+		public void indexer_set_and_get()
+		{
+			double a = 12.3;
+			Matrix m = new Matrix(2, 2);
+			m[0, 0] = a;
+			Assert.Equal(a, m[0, 0]);
+			Assert.Equal(0D, m[0, 1]);
+		}
 	}
 }

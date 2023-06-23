@@ -15,6 +15,13 @@ namespace Matrix
 			Cols = cols;
 		}
 
+		public Matrix(Matrix m)
+		{
+			Elements = (double[,])m.Elements.Clone();
+			Rows = m.Rows;
+			Cols = m.Cols;
+		}
+
 		public override string ToString()
 		{
 			string toRet = "";

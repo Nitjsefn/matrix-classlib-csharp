@@ -22,6 +22,13 @@ namespace Matrix
 			Cols = m.Cols;
 		}
 
+		public Matrix(double[,] arr)
+		{
+			Elements = (double[,])arr.Clone();
+			Rows = Elements.GetLength(0);
+			Cols = Elements.GetLength(1);
+		}
+
 		public double this[int r, int c]
 		{
 			get { return Elements[r, c]; }

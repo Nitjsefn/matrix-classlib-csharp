@@ -22,6 +22,12 @@ namespace Matrix
 			Cols = m.Cols;
 		}
 
+		public object this[int r, int c]
+		{
+			get { return Elements[r, c]; }
+			set { Elements[r, c] = (double)value; }
+		}
+
 		public override string ToString()
 		{
 			string toRet = "";

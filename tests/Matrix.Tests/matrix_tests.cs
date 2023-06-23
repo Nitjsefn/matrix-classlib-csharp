@@ -128,5 +128,17 @@ namespace Matrix.Tests
 			Assert.Equal(1, m[1, 2]);
 		}
 
+		[Fact]
+		public void constructs_from_2d_array()
+		{
+			double[,] arr = {{1, 2}, {3, 4}, {5, 6}};
+			var m = new Matrix(arr);
+			Assert.Equal(arr, m.Elements);
+			Assert.Equal(arr[1, 1], m[1, 1]);
+			m[1, 1] = 36;
+			Assert.NotEqual(arr[1, 1], m[1, 1]);
+			Assert.Equal(3, m.Rows);
+			Assert.Equal(2, m.Cols);
+		}
 	}
 }

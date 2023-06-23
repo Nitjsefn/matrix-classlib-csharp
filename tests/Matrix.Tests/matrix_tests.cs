@@ -156,9 +156,7 @@ namespace Matrix.Tests
 			m.Set(2, 0, 3);
 			m.Set(2, 1, 3);
 			m.Set(2, 2, 1);
-			System.Console.WriteLine(m.ToString());
 			m = m.UpperTriangularTransform();
-			System.Console.WriteLine(m.ToString());
 			Assert.Equal(0, m.Elements[1, 0]);
 			Assert.Equal(0, m.Elements[2, 0]);
 			Assert.Equal(0, m.Elements[2, 1]);

@@ -140,5 +140,45 @@ namespace Matrix.Tests
 			Assert.Equal(3, m.Rows);
 			Assert.Equal(2, m.Cols);
 		}
+		
+		[Fact]
+		public void transforms_matrix_into_upper_triangular()
+		{
+			int rows = 3;
+			int cols = 3;
+			var m = new Matrix(rows, cols);
+			m.Set(0, 0, 1);
+			m.Set(0, 1, 1);
+			m.Set(0, 2, 1);
+			m.Set(1, 0, 1);
+			m.Set(1, 1, 2);
+			m.Set(1, 2, 1);
+			m.Set(2, 0, 3);
+			m.Set(2, 1, 3);
+			m.Set(2, 2, 1);
+			System.Console.WriteLine(m.ToString());
+			m = m.UpperTriangularTransform();
+			System.Console.WriteLine(m.ToString());
+			Assert.Equal(0, m.Elements[1, 0]);
+			Assert.Equal(0, m.Elements[2, 0]);
+			Assert.Equal(0, m.Elements[2, 1]);
+			double product = m.Elements[0, 0] * m.Elements[1, 1] * m.Elements[2, 2];
+			Assert.Equal(-2, product);
+		}
+
+		[Fact]
+		public void throws_error_on_wrong_size_to_upper_triangular_transform()
+		{
+			int rows = 3;
+			int cols = 4;
+			var m = new Matrix(rows, cols);
+			try
+			{
+				m.UpperTriangularTransform();
+				Assert.Fail("Out of range Add does not throw exception");
+			}
+			catch
+			{}
+		}
 	}
 }

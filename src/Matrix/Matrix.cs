@@ -22,10 +22,10 @@ namespace Matrix
 			Cols = m.Cols;
 		}
 
-		public object this[int r, int c]
+		public double this[int r, int c]
 		{
 			get { return Elements[r, c]; }
-			set { Elements[r, c] = (double)value; }
+			set { Elements[r, c] = value; }
 		}
 
 		public override string ToString()

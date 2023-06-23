@@ -41,6 +41,28 @@ namespace Matrix
 			return toRet;
 		}
 
+		public void SwapRows(int r1, int r2)
+		{
+			double temp;
+			for(int i = 0; i < Cols; i++)
+			{
+				temp = Elements[r1, i];
+				Elements[r1, i] = Elements[r2, i];
+				Elements[r2, i] = temp;
+			}
+		}
+
+		public void SwapCols(int c1, int c2)
+		{
+			double temp;
+			for(int i = 0; i < Rows; i++)
+			{
+				temp = Elements[i, c1];
+				Elements[i, c1] = Elements[i, c2];
+				Elements[i, c2] = temp;
+			}
+		}
+
 		public void Set(int r, int c, double e)
 		{
 			if(r >= Rows || r < 0 || c >= Cols || c < 0)

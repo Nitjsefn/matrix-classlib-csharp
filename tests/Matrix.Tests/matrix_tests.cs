@@ -178,5 +178,23 @@ namespace Matrix.Tests
 			catch
 			{}
 		}
+
+		[Fact]
+		public void transposes_3x3_itself()
+		{
+			double[,] arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+			double[,] correctArr = {{1, 4, 7}, {2, 5, 8}, {3, 6, 9}};
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, m.Transpose().Elements);
+		}
+
+		[Fact]
+		public void transposes_3x2_itself()
+		{
+			double[,] arr = {{1, 2}, {3, 4}, {5, 6}};
+			double[,] correctArr = {{1, 3, 5}, {2, 4, 6}};
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, m.Transpose().Elements);
+		}
 	}
 }

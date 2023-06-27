@@ -86,6 +86,15 @@ namespace Matrix
 					Elements[r, c] += m.Elements[r, c];
 		}
 
+		public Matrix Transpose()
+		{
+			var m = new Matrix(Cols, Rows);
+			for(int r = 0; r < Rows; r++)
+				for(int c = 0; c < Cols; c++)
+					m[c, r] = Elements[r, c];
+			return m;
+		}
+
 		public Matrix UpperTriangularTransform()
 		{
 			if(Rows != Cols) throw new Exception("Matrix is not a square");

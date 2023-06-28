@@ -99,20 +99,22 @@ namespace Matrix
 		{
 			if(Rows != Cols) throw new Exception("Matrix is not a square");
 			if(Rows == 0 || Rows == 1) throw new Exception("Matrix is to small to perform upper triangular transformation");
+
 			bool transformed = true;
 			for(int r = 1; r < Rows && transformed; r++)
 				for(int c = 0; c < r && transformed; c++)
 					if(Elements[r, c] != 0) transformed = false;
 			if(transformed) return new Matrix(this);
+
 			var m = new Matrix(this);
 			for(int refRow = 0; refRow < m.Rows - 1; refRow++)
 			{
 				int colToReset = refRow;
 				if(m[refRow, colToReset] == 0)
 				{
-					int i = 1;
+					int i = refRow + 1;
 					while(i < m.Rows && m[i, refRow] == 0) i++;
-					if(m[i, refRow] == 0) throw new Exception("Cannot find other element than 0 in column");
+					if(i == m.Rows) continue;
 					m.SwapRows(refRow, i);
 				}
 				for(int crntRow = refRow + 1; crntRow < m.Rows; crntRow++)
@@ -120,6 +122,39 @@ namespace Matrix
 					if(m[crntRow, colToReset] == 0) continue;
 					double subScale = m[crntRow, colToReset] / m[refRow, colToReset];
 					for(int c = colToReset; c < m.Cols; c++)
+						m[crntRow, c] -= subScale * m[refRow, c];
+				}
+			}
+			return m;
+		}
+
+		public Matrix LowerTriangularTransform()
+		{
+			if(Rows != Cols) throw new Exception("Matrix is not a square");
+			if(Rows == 0 || Rows == 1) throw new Exception("Matrix is to small to perform lower triangular transformation");
+
+			bool transformed = true;
+			for(int r = 0; r < Rows - 1 && transformed; r++)
+				for(int c = r+1; c < Cols && transformed; c++)
+					if(Elements[r, c] != 0) transformed = false;
+			if(transformed) return new Matrix(this);
+
+			var m = new Matrix(this);
+			for(int refRow = m.Rows - 1; refRow >= 0; refRow--)
+			{
+				int colToReset = refRow;
+				if(m[refRow, colToReset] == 0)
+				{
+					int i = refRow - 1;
+					while(i >= 0  && m[i, refRow] == 0) i--;
+					if(i == -1) continue;
+					m.SwapRows(refRow, i);
+				}
+				for(int crntRow = refRow - 1; crntRow >= 0; crntRow--)
+				{
+					if(m[crntRow, colToReset] == 0) continue;
+					double subScale = m[crntRow, colToReset] / m[refRow, colToReset];
+					for(int c = colToReset; c >= 0; c--)
 						m[crntRow, c] -= subScale * m[refRow, c];
 				}
 			}

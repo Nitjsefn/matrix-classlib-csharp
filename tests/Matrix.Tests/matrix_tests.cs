@@ -196,5 +196,18 @@ namespace Matrix.Tests
 			var m = new Matrix(arr);
 			Assert.Equal(correctArr, m.Transpose().Elements);
 		}
+
+		[Fact]
+		public void transforms_matrix_into_lower_triangular()
+		{
+			double[,] arr = {{1, 1, 1}, {1, 2, 1}, {3 ,3, 1}};
+			var m = new Matrix(arr);
+			m = m.LowerTriangularTransform();
+			Assert.Equal(0, m.Elements[0, 1]);
+			Assert.Equal(0, m.Elements[0, 2]);
+			Assert.Equal(0, m.Elements[1, 2]);
+			double product = m.Elements[0, 0] * m.Elements[1, 1] * m.Elements[2, 2];
+			Assert.Equal(-2, product);
+		}
 	}
 }

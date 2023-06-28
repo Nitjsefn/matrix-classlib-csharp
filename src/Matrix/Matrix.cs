@@ -160,5 +160,49 @@ namespace Matrix
 			}
 			return m;
 		}
+
+		public double Determinant()
+		{
+			if(Rows != Cols) throw new Exception("Matrix is not a square");
+			if(Rows == 0 || Rows == 1) throw new Exception("Matrix is to small to perform upper triangular transformation");
+
+			double det = 1;
+			bool transformed = true;
+			for(int r = 1; r < Rows && transformed; r++)
+				for(int c = 0; c < r && transformed; c++)
+					if(Elements[r, c] != 0) transformed = false;
+
+			if(transformed)
+			{
+				for(int i = 0; i < Rows; i++)
+					det *= Elements[i, i];
+				return det;
+			}
+
+			var m = new Matrix(this);
+			for(int refRow = 0; refRow < m.Rows - 1; refRow++)
+			{
+				int colToReset = refRow;
+				if(m[refRow, colToReset] == 0)
+				{
+					int i = refRow + 1;
+					while(i < m.Rows && m[i, refRow] == 0) i++;
+					if(i == m.Rows) continue;
+					m.SwapRows(refRow, i);
+					det *= -1;
+				}
+				for(int crntRow = refRow + 1; crntRow < m.Rows; crntRow++)
+				{
+					if(m[crntRow, colToReset] == 0) continue;
+					double subScale = m[crntRow, colToReset] / m[refRow, colToReset];
+					for(int c = colToReset; c < m.Cols; c++)
+						m[crntRow, c] -= subScale * m[refRow, c];
+				}
+			}
+
+			for(int i = 0; i < Rows; i++)
+				det *= m[i, i];
+			return det;
+		}
 	}
 }

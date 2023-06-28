@@ -209,5 +209,45 @@ namespace Matrix.Tests
 			double product = m.Elements[0, 0] * m.Elements[1, 1] * m.Elements[2, 2];
 			Assert.Equal(-2, product);
 		}
+
+		[Fact]
+		public void counts_determinant_without_rows_swaps()
+		{
+			double[,] arr = {{1, 1, 1}, {1, 2, 1}, {3 ,3, 1}};
+			var m = new Matrix(arr);
+			Assert.Equal(-2, m.Determinant());
+		}
+
+		[Fact]
+		public void counts_determinant_with_rows_swaps()
+		{
+			double[,] arr = {{1, 1, 1, 1}, {0, 0, 1, 2}, {0, 1, 1, 1}, {0, 0, 1, 1}};
+			var m = new Matrix(arr);
+			Assert.Equal(1, m.Determinant());
+		}
+
+		[Fact]
+		public void counts_custom_determinant_1()
+		{
+			double[,] arr = {{1, 1, 1, 1}, {0, 0, 1, -2}, {0, 1, 1, 1}, {0, 0, 1, 1}};
+			var m = new Matrix(arr);
+			Assert.Equal(-3, m.Determinant());
+		}
+
+		[Fact]
+		public void counts_custom_determinant_2()
+		{
+			double[,] arr = {{1, 1, 1, 1}, {0, 0, 1, -2}, {0, 1, 1, 1}, {1, 15, 1, 1}};
+			var m = new Matrix(arr);
+			Assert.Equal(42, m.Determinant());
+		}
+
+		[Fact]
+		public void counts_custom_determinant_3()
+		{
+			double[,] arr = {{1, 1, 1, 1}, {0, 0.5, 1, -2}, {0, 1, 1, 1}, {1, 0.74, 1, 1}};
+			var m = new Matrix(arr);
+			Assert.Equal(-0.78, m.Determinant());
+		}
 	}
 }

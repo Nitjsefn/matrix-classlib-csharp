@@ -367,5 +367,14 @@ namespace Matrix.Tests
 			Assert.Equal(correctArr, m.Multiply(m2).Elements);
 			Assert.Equal(correctArr, m2.Multiply(m).Elements);
 		}
+
+		[Fact]
+		public void returns_matrix_multiplied_by_scalar()
+		{
+			double[,] arr = {{1, 2, 3}, {3, 2, 1.5}};
+			double[,] correctArr = {{2, 4, 6}, {6, 4, 3}};
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, m.Multiply(2).Elements);
+		}
 	}
 }

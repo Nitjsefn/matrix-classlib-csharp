@@ -98,6 +98,14 @@ namespace Matrix
 			return sum;
 		}
 
+		public static Matrix operator +(Matrix a) => a;
+
+		public static Matrix operator +(Matrix a, Matrix b) => a.Add(b);
+		
+		public static Matrix operator -(Matrix a) => a.Multiply(-1);
+
+		public static Matrix operator -(Matrix a, Matrix b) => a.Add(-b);
+
 		public Matrix Transpose()
 		{
 			var m = new Matrix(Cols, Rows);
@@ -282,5 +290,17 @@ namespace Matrix
 					m[r, c] *= k;
 			return m;
 		}
+
+		public static Matrix operator *(Matrix a, Matrix b) => a.Multiply(b);
+
+		public static Matrix operator *(double a, Matrix b) => b.Multiply(a);
+
+		public static Matrix operator *(Matrix a, double b) => a.Multiply(b);
+
+		public static Matrix operator /(Matrix a, Matrix b) => a.Multiply(b.Invert());
+
+		public static Matrix operator /(double a, Matrix b) => b.Invert().Multiply(a);
+
+		public static Matrix operator /(Matrix a, double b) => a.Multiply(1.0/b);
 	}
 }

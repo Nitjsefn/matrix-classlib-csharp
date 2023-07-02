@@ -249,5 +249,73 @@ namespace Matrix.Tests
 			var m = new Matrix(arr);
 			Assert.Equal(-0.78, m.Determinant());
 		}
+
+		[Fact]
+		public void returns_identity_matrix()
+		{
+			Matrix m = Matrix.IdentityMatrixPreset(3);
+			double[,] correctArr = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+			Assert.Equal(correctArr, m.Elements);
+		}
+
+		[Fact]
+		public void throws_error_on_wrong_matrix_size_to_invert()
+		{
+			double[,] arr = {{1, 4, 3}, {5, 4, 2}, {1, 2, 3}, {1, 4, 50}};
+			var m = new Matrix(arr);
+			try
+			{
+				m.Invert();
+				Assert.Fail("Out of range Invert does not throw exception");
+			}
+			catch
+			{}
+		}
+
+		[Fact]
+		public void throws_error_on_wrong_matrix_to_invert_1()
+		{
+			double[,] arr = {{0, 0, 0}, {1, 2, 3}, {1, 4, 50}};
+			var m = new Matrix(arr);
+			try
+			{
+				m.Invert();
+				Assert.Fail("Matrix with no inversed form does not throw exception during Inverse");
+			}
+			catch
+			{}
+		}
+
+		[Fact]
+		public void throws_error_on_wrong_matrix_to_invert_2()
+		{
+			double[,] arr = {{1, 2, 3, 4, 6}, {0, 1, 1, 5, 6}, {0, 1, 1, 1, 2}, {0, 0, 0, 33, 3.9}, {0, 0, 0, 0, 1.5}};
+			var m = new Matrix(arr);
+			try
+			{
+				m.Invert();
+				Assert.Fail("Matrix with no inversed form does not throw exception during Inverse");
+			}
+			catch
+			{}
+		}
+
+		[Fact]
+		public void returns_inverted_matrix()
+		{
+			double[,] arr = {{1, 1, 1}, {1, 2, 1}, {3 ,3, 1}};
+			double[,] correctArr = {{.5, -1, .5}, {-1, 1, 0}, {1.5, 0, -.5}};
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, m.Invert().Elements);
+		}
+
+		[Fact]
+		public void returns_inverted_matrix_with_forced_swap()
+		{
+			double[,] arr = {{0, 1, 1}, {0, 2, 1}, {1 ,3, 1}};
+			double[,] correctArr = {{1, -2, 1}, {-1, 1, 0}, {2, -1, 0}};
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, m.Invert().Elements);
+		}
 	}
 }

@@ -87,13 +87,15 @@ namespace Matrix
 			Elements[r, c] = e;
 		}
 
-		public void Add(Matrix m)
+		public Matrix Add(Matrix m)
 		{
-			if(m.Cols != this.Cols || m.Rows != this.Rows)
-				throw new ArgumentException("Matrices not equal");
-			for(int r = 0; r < Rows; r++)
-				for(int c = 0; c < Cols; c++)
-					Elements[r, c] += m.Elements[r, c];
+			var sum = new Matrix(this);
+			if(m.Cols != sum.Cols || m.Rows != sum.Rows)
+				throw new ArgumentException("Matrices size not equal");
+			for(int r = 0; r < sum.Rows; r++)
+				for(int c = 0; c < sum.Cols; c++)
+					sum[r, c] += m[r, c];
+			return sum;
 		}
 
 		public Matrix Transpose()

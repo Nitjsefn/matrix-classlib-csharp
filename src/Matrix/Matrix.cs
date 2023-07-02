@@ -214,5 +214,45 @@ namespace Matrix
 				det *= m[i, i];
 			return det;
 		}
+
+		public Matrix Invert()
+		{
+			if(Rows != Cols) throw new Exception("Matrix is not a square");
+			if(this.Determinant() == 0) throw new Exception("Matrix does not have inverted form");
+
+			var invertedMatrix = Matrix.IdentityMatrixPreset(Rows);
+			var m = new Matrix(this);
+			for(int diagonalIndx = 0; diagonalIndx < m.Cols; diagonalIndx++)
+			{
+				if(m[diagonalIndx, diagonalIndx] == 0)
+				{
+					int not0Indx = diagonalIndx + 1;
+					while(not0Indx < m.Rows && m[not0Indx, diagonalIndx] == 0) not0Indx++;
+					if(not0Indx == m.Rows) throw new Exception("Matrix does not have inverted form");
+					m.SwapRows(not0Indx, diagonalIndx);
+					invertedMatrix.SwapRows(not0Indx, diagonalIndx);
+				}
+				for(int r = 0; r < m.Rows; r++)
+				{
+					if(r == diagonalIndx) continue;
+					double subScale = m[r, diagonalIndx] / m[diagonalIndx, diagonalIndx];
+					for(int c = 0; c < m.Cols; c++)
+					{
+						m[r, c] -= subScale * m[diagonalIndx, c];
+						invertedMatrix[r, c] -= subScale * invertedMatrix[diagonalIndx, c];
+					}
+				}
+			}
+			for(int diagonalIndx = 0; diagonalIndx < m.Cols; diagonalIndx++)
+			{
+				double diagScale = 1 / m[diagonalIndx, diagonalIndx];
+				for(int c = 0; c < m.Cols; c++)
+				{
+					m[diagonalIndx, c] *= diagScale;
+					invertedMatrix[diagonalIndx, c] *= diagScale;
+				}
+			}
+			return invertedMatrix;
+		}
 	}
 }

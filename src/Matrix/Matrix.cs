@@ -254,5 +254,31 @@ namespace Matrix
 			}
 			return invertedMatrix;
 		}
+
+		public Matrix Multiply(Matrix m2)
+		{
+			if(this.Cols != m2.Rows) throw new ArgumentException("Matrices have incompatible size to multiply");
+			var product = new Matrix(this.Rows, m2.Cols);
+			for(int r = 0; r < product.Rows; r++)
+			{
+				for(int c = 0; c < product.Cols; c++)
+				{
+					double sum = 0;
+					for(int i = 0; i < this.Cols; i++)
+						sum += Elements[r, i] * m2[i, c];
+					product[r, c] = sum;
+				}
+			}
+			return product;
+		}
+
+		public Matrix Multiply(double k)
+		{
+			var m = new Matrix(this);
+			for(int r = 0; r < Rows; r++)
+				for(int c = 0; c < Cols; c++)
+					m[r, c] *= k;
+			return m;
+		}
 	}
 }

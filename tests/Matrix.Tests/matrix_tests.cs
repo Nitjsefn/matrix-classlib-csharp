@@ -317,5 +317,64 @@ namespace Matrix.Tests
 			var m = new Matrix(arr);
 			Assert.Equal(correctArr, m.Invert().Elements);
 		}
+
+		[Fact]
+		public void throws_error_on_wrong_matrix_to_multiply_1()
+		{
+			var m = new Matrix(2, 3);
+			var m2 = new Matrix(4, 5);
+			try
+			{
+				m.Multiply(m2);
+				Assert.Fail("Matrix multiply by matrix does not throw Exception in case of not matching size");
+			}
+			catch
+			{}
+		}
+
+		[Fact]
+		public void throws_error_on_wrong_matrix_to_multiply_2()
+		{
+			var m = new Matrix(3, 4);
+			var m2 = new Matrix(2, 3);
+			try
+			{
+				m.Multiply(m2);
+				Assert.Fail("Matrix multiply by matrix does not throw Exception in case of not matching size");
+			}
+			catch
+			{}
+		}
+
+		[Fact]
+		public void returns_matrix_multiplied_by_matrix()
+		{
+			double[,] arr1 = {{1, 2, 3}, {3, 2, 1}};
+			double[,] arr2 = {{1, 2, 3, 4}, {4, 3, 2, 1}, {1, 4, 4, 2}};
+			double[,] correctArr = {{12, 20, 19, 12}, {12, 16, 17, 16}};
+			var m = new Matrix(arr1);
+			var m2 = new Matrix(arr2);
+			Assert.Equal(correctArr, m.Multiply(m2).Elements);
+		}
+
+		[Fact]
+		public void returns_matrix_multiplied_by_inversed_matrix()
+		{
+			double[,] arr = {{1, -1},{0, 2}};
+			var m = new Matrix(arr);
+			var m2 = m.Invert();
+			double[,] correctArr = Matrix.IdentityMatrixPreset(2).Elements;
+			Assert.Equal(correctArr, m.Multiply(m2).Elements);
+			Assert.Equal(correctArr, m2.Multiply(m).Elements);
+		}
+
+		[Fact]
+		public void returns_matrix_multiplied_by_scalar()
+		{
+			double[,] arr = {{1, 2, 3}, {3, 2, 1.5}};
+			double[,] correctArr = {{2, 4, 6}, {6, 4, 3}};
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, m.Multiply(2).Elements);
+		}
 	}
 }

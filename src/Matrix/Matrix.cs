@@ -29,6 +29,16 @@ namespace Matrix
 			Cols = Elements.GetLength(1);
 		}
 
+		public static Matrix IdentityMatrixPreset(int n)
+		{
+			var m = new Matrix(n, n);
+			for(int i = 0; i < n; i++)
+			{
+				m[i, i] = 1;
+			}
+			return m;
+		}
+
 		public double this[int r, int c]
 		{
 			get { return Elements[r, c]; }

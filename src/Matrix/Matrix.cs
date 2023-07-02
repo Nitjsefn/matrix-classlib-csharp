@@ -271,5 +271,14 @@ namespace Matrix
 			}
 			return product;
 		}
+
+		public Matrix Multiply(double k)
+		{
+			var m = new Matrix(this);
+			for(int r = 0; r < Rows; r++)
+				for(int c = 0; c < Cols; c++)
+					m[r, c] *= k;
+			return m;
+		}
 	}
 }

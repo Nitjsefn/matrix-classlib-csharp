@@ -249,5 +249,13 @@ namespace Matrix.Tests
 			var m = new Matrix(arr);
 			Assert.Equal(-0.78, m.Determinant());
 		}
+
+		[Fact]
+		public void returns_identity_matrix()
+		{
+			Matrix m = Matrix.IdentityMatrixPreset(3);
+			double[,] correctArr = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+			Assert.Equal(correctArr, m.Elements);
+		}
 	}
 }

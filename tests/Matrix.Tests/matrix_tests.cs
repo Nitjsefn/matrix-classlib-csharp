@@ -375,5 +375,69 @@ namespace Matrix.Tests
 			var m = new Matrix(arr);
 			Assert.Equal(correctArr, m.Multiply(2).Elements);
 		}
+
+		[Fact]
+		public void returns_matrix_multiplied_by_matrix_by_operator()
+		{
+			double[,] arr1 = {{1, 2, 3}, {3, 2, 1}};
+			double[,] arr2 = {{1, 2, 3, 4}, {4, 3, 2, 1}, {1, 4, 4, 2}};
+			double[,] correctArr = {{12, 20, 19, 12}, {12, 16, 17, 16}};
+			var m = new Matrix(arr1);
+			var m2 = new Matrix(arr2);
+			Assert.Equal(correctArr, (m * m2).Elements);
+		}
+
+		[Fact]
+		public void returns_matrix_multiplied_by_scalar_by_operator()
+		{
+			double[,] arr = {{1, 2, 3}, {3, 2, 1.5}};
+			double[,] correctArr = {{2, 4, 6}, {6, 4, 3}};
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, (m * 2).Elements);
+		}
+
+		[Fact]
+		public void returns_added_matrix_by_operator()
+		{
+			int rows = 3;
+			int cols = 3;
+			var m = new Matrix(rows, cols);
+			m.Set(0, 0, 1);
+			m.Set(2, 1, 1);
+			var m2 = new Matrix(rows, cols);
+			m2.Set(0, 0, 1);
+			m2.Set(2, 1, 8);
+			var mCorrect = new Matrix(rows, cols);
+			mCorrect.Set(0, 0, 2);
+			mCorrect.Set(2, 1, 9);
+			Assert.Equal(mCorrect.Elements, (m + m2).Elements);
+		}
+
+		[Fact]
+		public void creates_opposite_matrix_by_operator()
+		{
+			double[,] arr = {{1, 2},{3, 4}};
+			double[,] correctArr = {{-1, -2},{-3, -4}};
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, (-m).Elements);
+		}
+
+		[Fact]
+		public void returns_substracted_matrix_from_itself_by_operator()
+		{
+			double[,] arr = {{1, 2},{3, 4}};
+			double[,] correctArr = new double[2, 2];
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, (m - m).Elements);
+		}
+
+		[Fact]
+		public void returns_divided_scalar_by_matrix_by_operator()
+		{
+			double[,] arr = {{1, -1},{0, 2}};
+			double[,] correctArr = {{2, 1}, {0, 1}};
+			var m = new Matrix(arr);
+			Assert.Equal(correctArr, (2 / m).Elements);
+		}
 	}
 }
